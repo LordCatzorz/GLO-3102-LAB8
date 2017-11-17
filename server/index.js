@@ -17,5 +17,6 @@ app.use(bodyParser.json());
 
 
 app.post('/users', users.createUser);
+app.post('/login', users.getUserByLogin);
 
 app.listen(3000);

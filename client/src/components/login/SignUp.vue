@@ -55,7 +55,7 @@
               if (response.status === 409) {
                 throw 'Username taken';
               } else {
-                throw 'An error occured while creating this user';
+                throw 'An error occurred while creating this user';
               }
             }
           }).then((data) => {
@@ -65,6 +65,7 @@
             if (typeof error === 'string') {
               this.errors.push(error);
             } else {
+              this.errors.push('An error occurred');
               console.log(error);
             }
           })
