@@ -17,7 +17,7 @@
 </template>
 
 <script>
-
+  import * as constantes from '@/assets/Constantes'
   import { CreateUserASync } from '@/assets/api/lab8'
   import Cookie from 'js-cookie'
 
@@ -59,7 +59,7 @@
               }
             }
           }).then((data) => {
-            Cookie.set('userToken', data.token, {expires: 1});
+            Cookie.set(constantes.COOKIE_USER_TOKEN, data.token, {expires: 1});
             this.$router.push('UserProfile');
           }).catch((error) => {
             if (typeof error === 'string') {

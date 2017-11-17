@@ -12,6 +12,10 @@ function getLoginAddress() {
   return `${getApiAddress()}login`;
 }
 
+function getUserFromTokenAddress(token) {
+  return `${getUsersAddress()}?token=${token}`;
+}
+
 export function CreateUserASync(username, password) {
   const myBody = {
     username: username,
@@ -52,6 +56,16 @@ export function GetUserFromLoginAsync(username, password) {
   };
 
   const myRequest = new Request(getLoginAddress(), myInit);
+
+  return fetch(myRequest);
+}
+
+export function GetUserFromTokenAsync(token) {
+  const myInit = {
+    method: 'GET'
+  };
+
+  const myRequest = new Request(getUserFromTokenAddress(token), myInit);
 
   return fetch(myRequest);
 }

@@ -15,6 +15,16 @@ function getUserByUsernamePassword(usernamePassword) {
     });
 }
 
+function getUserByToken(token) {
+    return allUsers.filter(function(user) {
+        return user.token === token;
+    });
+}
+
+function getCurrentTime() {
+    return (new Date).getTime();
+}
+
 exports.createUser = function (req, res) {
   console.log('Create user');
   if (req.body.usernamepassword === undefined || req.body.username === undefined
@@ -35,7 +45,8 @@ exports.createUser = function (req, res) {
           var newUser = {
               username: req.body.username,
               usernamepassword: req.body.usernamepassword,
-              token: newToken
+              token: newToken,
+              tokenCreationTime: getCurrentTime()
           };
 
           allUsers.push(newUser);
@@ -65,7 +76,8 @@ exports.getUserByLogin = function (req, res) {
             var newUserConnection = {
                 username: user.username,
                 usernamepassword: user.usernamepassword,
-                token: newToken
+                token: newToken,
+                tokenCreationTime: getCurrentTime()
             };
 
             allUsers.push(newUserConnection);
@@ -80,4 +92,36 @@ exports.getUserByLogin = function (req, res) {
             })
         }
     }
-}
+};
+
+exports.getUserByToken = function (req, res) {
+    var token = req.query.token;
+    console.log('Get user by token with ' + token);
+    if (token === undefined
+        || typeof token !== 'string'
+        || token === '') {
+        res.status(412).send({
+            errorCode: 'INVALID_REQUEST',
+            message: 'Invalid token'
+        });
+    } else {
+        var matchedUsers = getUserByToken(token);
+        if (matchedUsers.length === 1) {
+            res.status(200).send({
+                username: matchedUsers[0].username
+            });
+        } else if (matchedUsers.length === 0) {
+            res.status(403).send({
+                errorCode: 'USER_NOT_FOUND',
+                message: 'A user with this token does not exists'
+            })
+        } else {
+            // Mathematically impossible
+            console.log('!!WARNING!! Duplicate token!');
+            res.status(409).send({
+                errorCode: 'TOO_MUCH_USERS',
+                message: 'Something went real bad'
+            })
+        }
+    }
+};
