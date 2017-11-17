@@ -3,7 +3,6 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 
 var users = require('./routes/users');
-var tasks = require('./routes/tasks');
 
 var corsOptions = {
     origin: '*',
@@ -15,5 +14,8 @@ var app = express();
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
+
+
+app.post('/users', users.createUser);
 
 app.listen(3000);
