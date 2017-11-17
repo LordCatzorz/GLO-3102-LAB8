@@ -17,7 +17,7 @@
 </template>
 
 <script>
-  import { GetUserAsync } from '@/assets/api/lab8'
+  import { GetUserFromLoginAsync } from '@/assets/api/lab8'
   import Cookie from 'js-cookie'
 
   export default {
@@ -46,7 +46,7 @@
       },
       launchLogin() {
         if (this.validateForm()) {
-          GetUserAsync(this.username, this.password).then((response) => {
+          GetUserFromLoginAsync(this.username, this.password).then((response) => {
             console.log(response);
             if (response.ok) {
               return response.json();

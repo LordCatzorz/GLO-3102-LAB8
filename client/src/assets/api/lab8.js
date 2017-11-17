@@ -35,7 +35,7 @@ export function CreateUserASync(username, password) {
   return fetch(myRequest);
 }
 
-export function GetUserAsync(username, password) {
+export function GetUserFromLoginAsync(username, password) {
   const myBody = {
     usernamepassword: btoa(`${username}:${password}`)
   };
