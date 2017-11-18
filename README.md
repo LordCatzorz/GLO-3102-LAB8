@@ -13,3 +13,6 @@
 7. Naviguer dans le dossier "client"
 8. Tapper "npm install"
 9. Tapper "npm start"
+10. Ouvrir l'application dans un navigateur à l'adresse localhost:8080
+
+_Tester avec Version 61.0.3163.91 (Official Build) (64-bit)_
